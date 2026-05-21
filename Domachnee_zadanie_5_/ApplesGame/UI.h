@@ -16,19 +16,16 @@ namespace ApplesGame
 
     };
 
-    struct Record {
-        std::string name;
-        int score;
-    };
-
     void DrawMainMenu(sf::RenderWindow& window, const sf::Font& font);
 
     void InitUI(UI& ui, const sf::Font& font);
 
     void UpdateUIScore(UI& ui, int numEatenApples);
 
+    void DrawLeaderboard(sf::RenderWindow& window, const sf::Font& font, const std::map<std::string, int>& leaderboard);
+
     void DrawUI(UI& ui, sf::RenderWindow& window);
 
-    void DrawLeaderboard(sf::RenderWindow& window, const sf::Font& font, const std::map<std::string, int>& leaderboard);
+   
 
 }
