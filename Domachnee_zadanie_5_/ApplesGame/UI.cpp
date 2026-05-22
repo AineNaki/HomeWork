@@ -82,7 +82,7 @@ namespace ApplesGame
         ui.winText.setCharacterSize(48);
         ui.winText.setFillColor(sf::Color::White);
         ui.winText.setOrigin(ui.winText.getLocalBounds().width / 2, ui.winText.getLocalBounds().height / 2);
-        ui.winText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
+        ui.winText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f - 200);
 
         ui.goalText.setFont(font);
         ui.goalText.setCharacterSize(20);

@@ -55,10 +55,21 @@ namespace ApplesGame
         game.background.setFillColor(sf::Color::Black);
         game.background.setPosition(0.f, 0.f);
 
-        game.leaderboard["Alice"] = 120;
-        game.leaderboard["Bob"] = 85;
-        game.leaderboard["Carol"] = 55;
-        game.leaderboard["Dave"] = 30;
+        game.leaderboard.clear();
+
+        game.leaderboard["ChinaGamer"] = 999; // just joke
+
+        const std::string namesPool[] = { "Alisa", "Noob", "Silver_man", "Love_espresso", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack" };
+        int poolSize = sizeof(namesPool) / sizeof(namesPool[0]);
+        int numFake = 5;
+
+        std::vector<std::string> availableNames(namesPool, namesPool + poolSize);
+        for (int i = 0; i < numFake; ++i) {
+            int idx = rand() % availableNames.size();
+            int score = rand() % 201 + 50;
+            game.leaderboard[availableNames[idx]] = score;
+            availableNames.erase(availableNames.begin() + idx);
+        }
 
         game.applesDynamic = nullptr;
         game.applesEaten = nullptr;
@@ -227,6 +238,7 @@ namespace ApplesGame
 
         if (game.applesGoal > 0 && game.numEatenApples >= game.applesGoal)
         {
+            AddPlayerToLeaderboard(game);
             game.status = GameStatus::Win;
             game.background.setFillColor(sf::Color::Green);
             return;
@@ -255,7 +267,11 @@ namespace ApplesGame
            // window.draw(game.ui.gameOverText);
             DrawLeaderboard(window, game.font, game.leaderboard);
         else if (game.status == GameStatus::Win)
+        {
+            DrawLeaderboard(window, game.font, game.leaderboard);
             window.draw(game.ui.winText);
+
+        }
 
         if (!game.ui.goalText.getString().isEmpty())
             window.draw(game.ui.goalText);
