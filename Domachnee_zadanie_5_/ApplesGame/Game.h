@@ -9,14 +9,19 @@
 #include "UI.h"
 #include <map>
 #include <string>
+#include <stack>
 
 namespace ApplesGame
 {
-    enum class GameStatus // I separate the game state in this way
+    enum class GameStatus 
     {
+        MainMenu,
         Playing,
+        Pause,
         GameOver,
-        Win
+        Win,
+        ExitConfirmation,
+        Leaderboard
     };
 
     struct Game
@@ -24,16 +29,13 @@ namespace ApplesGame
         Player player;
         Stone stones[NUM_STONES];
 
+        std::vector<Apple> applesDynamic;
+        std::vector <bool> applesEaten;
 
-        Apple* applesDynamic = nullptr;
-        int applesCount = 0;
         int applesGoal = 0;
-        bool* applesEaten = nullptr;
 
-        bool isInMainMenu = true;
         uint32_t modeFlags = 0;
 
-        GameStatus status = GameStatus::Playing;
         int numEatenApples = 0;
         sf::RectangleShape background;
 
@@ -53,6 +55,25 @@ namespace ApplesGame
         sf::Sound stoneHitSound;
 
         std::map<std::string, int> leaderboard;
+        std::stack<GameStatus> stateStack;
+
+        void PushState(GameStatus state)
+        {
+            stateStack.push(state);
+        }
+        void PopState()
+
+        {
+            if (!stateStack.empty())
+                stateStack.pop();
+        }
+
+        GameStatus GetCurrentState() const
+        {
+            if (stateStack.empty())
+                return GameStatus::MainMenu;
+            return stateStack.top();
+        }
 
     };
 

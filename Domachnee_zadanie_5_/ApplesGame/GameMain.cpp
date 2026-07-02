@@ -19,14 +19,9 @@ int main()
     Game game;
     InitGame(game);
 
-    game.isInMainMenu = true;
-   
-
     while (window.isOpen())
     {
-        //Reduce framerate to not spam CPU and GPU
         sf::sleep(sf::milliseconds(15));
-
         float currentTime = game.gameClock.getElapsedTime().asSeconds();
         float deltaTime = currentTime - game.lastTime;
         game.lastTime = currentTime;
@@ -37,51 +32,185 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-                window.close();
+            {
+                GameStatus cur = game.GetCurrentState();
+                if (cur == GameStatus::Playing || cur == GameStatus::GameOver || cur == GameStatus::Win)
+                {
+                    game.PushState(GameStatus::ExitConfirmation);
+                }
+            }
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+            {
+                if (game.GetCurrentState() == GameStatus::Playing)
+                {
+                    game.PushState(GameStatus::Pause);
+                }
+            }
         }
-        if (game.isInMainMenu) {
-            window.clear(sf::Color::Black);
-            DrawMainMenu(window, game.font);
+
+        GameStatus currentState = game.GetCurrentState();
+
+       if (currentState == GameStatus::MainMenu)
+       {
+           static int selected = 0; // 0..4
+           window.clear(sf::Color::Black);
+           DrawMainMenu(window, game.font, selected);
+           window.display();
+
+           if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+               selected = (selected - 1 + 6) % 6;
+               sf::sleep(sf::milliseconds(150));
+           }
+           else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+               selected = (selected + 1) % 6;
+               sf::sleep(sf::milliseconds(150));
+           }
+           else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+               if (selected == 0) {
+                   game.modeFlags = static_cast<uint32_t>(GameModeFlags::SpeedUp);
+                   ApplyGameMode(game);
+                   game.PopState();
+                   game.PushState(GameStatus::Playing);
+               }
+               else if (selected == 1) {
+                   game.modeFlags = static_cast<uint32_t>(GameModeFlags::None);
+                   ApplyGameMode(game);
+                   game.PopState();
+                   game.PushState(GameStatus::Playing);
+               }
+               else if (selected == 2) {
+                   game.modeFlags = static_cast<uint32_t>(GameModeFlags::SpeedUp) | static_cast<uint32_t>(GameModeFlags::FiftyApples);
+                   ApplyGameMode(game);
+                   game.PopState();
+                   game.PushState(GameStatus::Playing);
+               }
+               else if (selected == 3) {
+                   game.modeFlags = static_cast<uint32_t>(GameModeFlags::FiniteGoal);
+                   ApplyGameMode(game);
+                   game.PopState();
+                   game.PushState(GameStatus::Playing);
+               }
+               else if (selected == 4) {
+                   game.PushState(GameStatus::Leaderboard);
+               }
+               else if (selected == 5) {
+                   window.close();
+               }
+               sf::sleep(sf::milliseconds(200));
+           }
+           continue;
+           }
+
+
+        else if (currentState == GameStatus::Playing)
+        {
+            UpdateGame(game, deltaTime);
+            window.clear();
+            DrawGame(game, window);
+            window.display();
+        }
+
+        else if (currentState == GameStatus::GameOver)
+        {
+            window.clear();
+            DrawLeaderboard(window, game.font, game.leaderboard);
             window.display();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-                game.modeFlags = static_cast<uint32_t>(GameModeFlags::SpeedUp);
-                ApplyGameMode(game);
-                game.isInMainMenu = false;
-                std::cout << "Mode 1 selected\n";
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                while (!game.stateStack.empty())
+                    game.stateStack.pop();
+                game.stateStack.push(GameStatus::MainMenu);
+                sf::sleep(sf::milliseconds(200));
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-                game.modeFlags = static_cast<uint32_t>(GameModeFlags::None);
-                ApplyGameMode(game);
-                game.isInMainMenu = false;
-                std::cout << "Mode 2 selected\n";
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-                game.modeFlags = static_cast<uint32_t>(GameModeFlags::SpeedUp) |
-                    static_cast<uint32_t>(GameModeFlags::FiftyApples);
-                ApplyGameMode(game);
-                game.isInMainMenu = false;
-                std::cout << "Mode 3 selected\n";
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-                game.modeFlags = static_cast<uint32_t>(GameModeFlags::FiniteGoal);
-                ApplyGameMode(game);
-                game.isInMainMenu = false;
-                std::cout << "Mode 4 selected: Finite goal (random), no acceleration\n";
-            }
-
-            continue; 
+            continue;
         }
 
-        UpdateGame(game, deltaTime);
+        else if (currentState == GameStatus::Win)
+        {
+            window.clear();
+            DrawLeaderboard(window, game.font, game.leaderboard);
+            window.draw(game.ui.winText);
+            window.display();
 
-        window.clear(); 
-        DrawGame(game, window);
-        window.display();
-    }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                while (!game.stateStack.empty())
+                    game.stateStack.pop();
+                game.stateStack.push(GameStatus::MainMenu);
+                sf::sleep(sf::milliseconds(200));
+            }
+            continue;
+        }
+
+
+        else if (currentState == GameStatus::ExitConfirmation)
+        {
+            window.clear();
+            DrawExitConfirmation(window, game.font);
+            window.display();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y)) {
+                window.close();
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) {
+                game.PopState();
+            }
+            continue;
+        }
+
+        else if (currentState == GameStatus::Leaderboard)
+
+        {
+            window.clear();
+            DrawLeaderboardState(window, game.font, game.leaderboard);
+            window.display();
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace))
+            {
+                game.PopState();
+                sf::sleep(sf::milliseconds(200));
+            }
+            continue;
+        }
+
+        else if (currentState == GameStatus::Pause)
+        {
+            static int selected = 0;
+            window.clear();
+            DrawPauseMenu(window, game.font, selected);
+            window.display();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                selected = (selected - 1 + 2) % 2;
+                sf::sleep(sf::milliseconds(150));
+
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+                selected = (selected + 1) % 2;
+                sf::sleep(sf::milliseconds(150));
+            }
+            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+            {
+                if (selected == 0)
+                {
+                    game.PopState();
+                }
+                else
+                {
+                  
+                    while (!game.stateStack.empty())
+                        game.stateStack.pop();
+                    game.stateStack.push(GameStatus::MainMenu);
+                }
+                sf::sleep(sf::milliseconds(200));
+            }
+            continue;
+            }
+        }
+    
 
     DeinitializeGame(game);
     return 0;
 }
-

@@ -7,47 +7,50 @@
 namespace ApplesGame
 {
 
-    void DrawMainMenu(sf::RenderWindow& window, const sf::Font& font)
+    void DrawMainMenu(sf::RenderWindow& window, const sf::Font& font, int selectedItem)
     {
+        std::vector<std::string> items = {
+            "1. 20 apples, with acceleration",
+            "2. 20 apples, no acceleration",
+            "3. 50 apples, with acceleration",
+            "4. Finite goal (20-50 apples), no acceleration",
+            "5. Leaderboard",
+            "6. Exit"
+        };
+
         sf::Text title;
         title.setFont(font);
         title.setString("Select Game Mode:");
         title.setCharacterSize(36);
-        title.setFillColor(sf::Color(255,80,155));
-        title.setPosition(SCREEN_WIDTH / 2 - title.getLocalBounds().width / 2, 100);
+        title.setFillColor(sf::Color(0, 255, 255));
+        title.setPosition(SCREEN_WIDTH / 2 - title.getLocalBounds().width / 2, 60);
         window.draw(title);
 
-        sf::Text mode1;
-        mode1.setFont(font);
-        mode1.setString("1 - 20 apples, with acceleration");
-        mode1.setCharacterSize(28);
-        mode1.setFillColor(sf::Color(213, 100, 124));
-        mode1.setPosition(SCREEN_WIDTH / 2 - mode1.getLocalBounds().width / 2, 210);
-        window.draw(mode1);
+        for (size_t i = 0; i < items.size(); ++i) {
+            sf::Text item;
+            item.setFont(font);
+            item.setString(items[i]);
+            item.setCharacterSize(28);
+            item.setFillColor(sf::Color(213, 100, 124));
+            if (i == selectedItem) {
+                item.setOutlineThickness(2);
+                item.setOutlineColor(sf::Color(0, 255, 255));
+            }
+            item.setPosition(SCREEN_WIDTH / 2 - item.getLocalBounds().width / 2, 140 + i * 60);
+            window.draw(item);
+        }
+    }
+   
 
-        sf::Text mode2;
-        mode2.setFont(font);
-        mode2.setString("2 - 20 apples, no acceleration");
-        mode2.setCharacterSize(28);
-        mode2.setFillColor(sf::Color(219, 119, 141));
-        mode2.setPosition(SCREEN_WIDTH / 2 - mode2.getLocalBounds().width / 2, 270);
-        window.draw(mode2);
-
-        sf::Text mode3;
-        mode3.setFont(font);
-        mode3.setString("3 - 50 apples, with acceleration");
-        mode3.setCharacterSize(28);
-        mode3.setFillColor(sf::Color(233,161,176));
-        mode3.setPosition(SCREEN_WIDTH / 2 - mode3.getLocalBounds().width / 2, 330);
-        window.draw(mode3);
-
-        sf::Text mode4;
-        mode4.setFont(font);
-        mode4.setString("4 - finite goal, no acceleration");
-        mode4.setCharacterSize(28);
-        mode4.setFillColor(sf::Color(245, 200, 200));
-        mode4.setPosition(SCREEN_WIDTH / 2 - mode4.getLocalBounds().width / 2, 400);
-        window.draw(mode4);
+    void DrawExitConfirmation(sf::RenderWindow& window, const sf::Font& font)
+    {
+        sf::Text confirmText;
+        confirmText.setFont(font);
+        confirmText.setString("Do you want to exit? (Y/N)");
+        confirmText.setCharacterSize(30);
+        confirmText.setFillColor(sf::Color::White);
+        confirmText.setPosition(SCREEN_WIDTH / 2 - confirmText.getLocalBounds().width / 2, SCREEN_HEIGHT / 2);
+        window.draw(confirmText);
     }
 
     void InitUI(UI& ui, const sf::Font& font)
@@ -134,6 +137,49 @@ namespace ApplesGame
             window.draw(entry);
             yOffset += 30;
         }
+
+
+
+    }
+
+    void DrawLeaderboardState(sf::RenderWindow& window, const sf::Font& font, const std::map<std::string, int>& leaderboard)
+    {
+   
+        DrawLeaderboard(window, font, leaderboard);
+
+        sf::Text backText;
+        backText.setFont(font);
+        backText.setString("Press Backspace to return to menu");
+        backText.setCharacterSize(20);
+        backText.setFillColor(sf::Color::White);
+        backText.setPosition(SCREEN_WIDTH / 2 - backText.getLocalBounds().width / 2, SCREEN_HEIGHT - 50);
+        window.draw(backText);
+    }
+
+    void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font, int selectedItem)
+    {
+        sf::Text title;
+        title.setFont(font);
+        title.setString("PAUSE");
+        title.setCharacterSize(48);
+        title.setFillColor(sf::Color::White);
+        title.setPosition(SCREEN_WIDTH / 2 - title.getLocalBounds().width / 2, SCREEN_HEIGHT / 2 - 150);
+        window.draw(title);
+
+        std::vector<std::string> items = { "Continue", "Exit to Menu" };
+        for (size_t i = 0; i < items.size(); ++i) {
+            sf::Text item;
+            item.setFont(font);
+            item.setString(items[i]);
+            item.setCharacterSize(32);
+            item.setFillColor(sf::Color::White);
+            if (i == selectedItem) {
+                item.setOutlineThickness(2);
+                item.setOutlineColor(sf::Color::Yellow);
+            }
+            item.setPosition(SCREEN_WIDTH / 2 - item.getLocalBounds().width / 2, SCREEN_HEIGHT / 2 + i * 60);
+            window.draw(item);
+        }
     }
 
     void DrawUI(UI& ui, sf::RenderWindow& window)
@@ -141,4 +187,8 @@ namespace ApplesGame
         window.draw(ui.scoreText);
         window.draw(ui.controlsText);
     }
+
+
+
+
 }

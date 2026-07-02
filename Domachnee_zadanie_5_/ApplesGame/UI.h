@@ -16,15 +16,20 @@ namespace ApplesGame
 
     };
 
-    void DrawMainMenu(sf::RenderWindow& window, const sf::Font& font);
+    void DrawMainMenu(sf::RenderWindow& window, const sf::Font& font, int selectedItem);
 
     void InitUI(UI& ui, const sf::Font& font);
 
     void UpdateUIScore(UI& ui, int numEatenApples);
 
     void DrawLeaderboard(sf::RenderWindow& window, const sf::Font& font, const std::map<std::string, int>& leaderboard);
+    void DrawLeaderboardState(sf::RenderWindow& window, const sf::Font& font, const std::map<std::string, int>& leaderboard);
 
     void DrawUI(UI& ui, sf::RenderWindow& window);
+
+    void DrawExitConfirmation(sf::RenderWindow& window, const sf::Font& font);
+
+    void DrawPauseMenu(sf::RenderWindow& window, const sf::Font& font, int selectedItem);
 
    
 

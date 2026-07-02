@@ -6,18 +6,17 @@ namespace ApplesGame
     void RestartGame(Game& game)
     {
         game.leaderboard.erase("Player");
-        game.status = GameStatus::Playing;
         game.background.setFillColor(sf::Color::Black);
 
         InitPlayer(game.player, game);
 
-        if (game.applesEaten && (game.modeFlags & static_cast<uint32_t>(GameModeFlags::FiniteGoal)))
+        if (game.modeFlags & static_cast<uint32_t>(GameModeFlags::FiniteGoal))
         {
-            for (int i = 0; i < game.applesCount; ++i)
+            for (int i = 0; i < game.applesDynamic.size(); ++i)
                 game.applesEaten[i] = false;
         }
 
-        for (int i = 0; i < game.applesCount; ++i)
+        for (int i = 0; i < game.applesDynamic.size(); ++i)
         {
             InitApple(game.applesDynamic[i], game.appleTexture);
         }
@@ -70,10 +69,7 @@ namespace ApplesGame
             game.leaderboard[availableNames[idx]] = score;
             availableNames.erase(availableNames.begin() + idx);
         }
-
-        game.applesDynamic = nullptr;
-        game.applesEaten = nullptr;
-        game.applesCount = 0;
+        game.stateStack.push(GameStatus::MainMenu);
     }
 
     void ApplyGameMode(Game& game)
@@ -95,28 +91,16 @@ namespace ApplesGame
             game.ui.goalText.setString("");
         }
 
-        if (newCount != game.applesCount)
+        game.applesDynamic.resize(newCount);
+        game.applesEaten.resize(newCount);
+
+        // »нициализируем (позиции €блок и флаги)
+        for (int i = 0; i < newCount; ++i)
         {
-            delete[] game.applesDynamic;
-            delete[] game.applesEaten;
-
-            game.applesCount = newCount;
-            game.applesDynamic = new Apple[newCount];
-            game.applesEaten = new bool[newCount];
-
-            for (int i = 0; i < newCount; ++i)
-            {
-                game.applesEaten[i] = false;
-                InitApple(game.applesDynamic[i], game.appleTexture);
-            }
+            game.applesEaten[i] = false;
+            InitApple(game.applesDynamic[i], game.appleTexture);
         }
-        else {
-            for (int i = 0; i < game.applesCount; ++i)
-            {
-                game.applesEaten[i] = false;
-                InitApple(game.applesDynamic[i], game.appleTexture);
-            }
-        }
+        
 
         game.numEatenApples = 0;
         UpdateUIScore(game.ui, 0);
@@ -128,7 +112,7 @@ namespace ApplesGame
         bool speedUp = (game.modeFlags & static_cast<uint32_t>(GameModeFlags::SpeedUp)) != 0;
         bool finiteGoal = (game.modeFlags & static_cast<uint32_t>(GameModeFlags::FiniteGoal)) != 0;
 
-        for (int i = 0; i < game.applesCount; ++i)
+        for (int i = 0; i < game.applesDynamic.size(); ++i)
         {
             if (!IsCollide(game.player.position, PLAYER_SIZE,
                 game.applesDynamic[i].position, APPLE_SIZE))
@@ -171,10 +155,11 @@ namespace ApplesGame
             if (IsCollide(game.player.position, PLAYER_SIZE,
                 game.stones[i].position, STONE_SIZE))
             {
-                if (game.status == GameStatus::Playing) 
+                if (game.GetCurrentState() == GameStatus::Playing)
                 {
                     AddPlayerToLeaderboard(game);
-                    game.status = GameStatus::GameOver;
+                    game.PopState();         
+                    game.PushState(GameStatus::GameOver);
                     game.stoneHitSound.play();
                     game.background.setFillColor(sf::Color::Red);
                 }
@@ -185,16 +170,11 @@ namespace ApplesGame
 
     void UpdateGame(Game& game, float deltaTime)
     {
-        if (game.status != GameStatus::Playing)
+        if (game.GetCurrentState() != GameStatus::Playing)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            {
-                RestartGame(game);
-                sf::sleep(sf::seconds(1));
-                game.lastTime = game.gameClock.getElapsedTime().asSeconds();
-            }
-            return;
+           return;
         }
+       
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             game.player.direction = PlayerDirection::Right;
@@ -223,15 +203,15 @@ namespace ApplesGame
        
         if (IsPlayerCollidingWithScreenBorder(game.player))
         {
-            if (game.status == GameStatus::Playing)
+            if (game.GetCurrentState() == GameStatus::Playing)
             {
                 AddPlayerToLeaderboard(game);
-                game.status = GameStatus::GameOver;
+                game.PopState(); 
+                game.PushState(GameStatus::GameOver);
                 game.background.setFillColor(sf::Color::Red);
                 game.stoneHitSound.play();
             }
         }
-
 
 
         CheckAppleCollisions(game);
@@ -239,7 +219,8 @@ namespace ApplesGame
         if (game.applesGoal > 0 && game.numEatenApples >= game.applesGoal)
         {
             AddPlayerToLeaderboard(game);
-            game.status = GameStatus::Win;
+            game.PopState();
+            game.PushState(GameStatus::Win);
             game.background.setFillColor(sf::Color::Green);
             return;
         }
@@ -252,7 +233,7 @@ namespace ApplesGame
         window.draw(game.background);
         DrawPlayer(game.player, window);
 
-        for (int i = 0; i < game.applesCount; ++i)
+        for (int i = 0; i < game.applesDynamic.size(); ++i)
         {
             if (!game.applesEaten[i])
                 DrawApple(game.applesDynamic[i], window);
@@ -263,26 +244,12 @@ namespace ApplesGame
 
         DrawUI(game.ui, window);
 
-        if (game.status == GameStatus::GameOver)
-           // window.draw(game.ui.gameOverText);
-            DrawLeaderboard(window, game.font, game.leaderboard);
-        else if (game.status == GameStatus::Win)
-        {
-            DrawLeaderboard(window, game.font, game.leaderboard);
-            window.draw(game.ui.winText);
-
-        }
-
         if (!game.ui.goalText.getString().isEmpty())
             window.draw(game.ui.goalText);
     }
 
     void DeinitializeGame(Game& game)
     {
-        delete[] game.applesDynamic;
-        delete[] game.applesEaten;
-        game.applesDynamic = nullptr;
-        game.applesEaten = nullptr;
-        game.applesCount = 0;
+      
     }
 }
