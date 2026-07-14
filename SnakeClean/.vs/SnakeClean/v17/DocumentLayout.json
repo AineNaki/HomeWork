@@ -1,0 +1,266 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Source\\SnakeClean\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\UI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\UI.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\UI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\UI.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Wall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Wall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\GameMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\GameMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Snake.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Snake.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Sound.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Apple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Apple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Sound.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Sound.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Snake.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Snake.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|D:\\Source\\SnakeClean\\SnakeClean\\Apple.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A0CCB805-D66C-4B76-8812-BF8DE0BBE19F}|SnakeClean\\SnakeClean.vcxproj|solutionrelative:SnakeClean\\Apple.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Sound.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Sound.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Sound.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Sound.h",
+              "RelativeToolTip": "SnakeClean\\Sound.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-09T01:38:22.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Sound.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Sound.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\Sound.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Sound.cpp",
+              "RelativeToolTip": "SnakeClean\\Sound.cpp",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwC8AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-09T01:37:52.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Constants.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Constants.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Constants.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Constants.h",
+              "RelativeToolTip": "SnakeClean\\Constants.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-08T01:13:01.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Wall.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Wall.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Wall.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Wall.h",
+              "RelativeToolTip": "SnakeClean\\Wall.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-08T01:12:21.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Wall.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Wall.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\Wall.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Wall.cpp",
+              "RelativeToolTip": "SnakeClean\\Wall.cpp",
+              "ViewState": "AgIAAKUAAAAAAAAAAAAAAL4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-08T01:11:56.616Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Snake.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Snake.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\Snake.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Snake.cpp",
+              "RelativeToolTip": "SnakeClean\\Snake.cpp",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAIwIkAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-06T03:25:43.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Snake.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Snake.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Snake.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Snake.h",
+              "RelativeToolTip": "SnakeClean\\Snake.h",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAIwDkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-06T03:24:17.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "GameMain.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\GameMain.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\GameMain.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\GameMain.cpp",
+              "RelativeToolTip": "SnakeClean\\GameMain.cpp",
+              "ViewState": "AgIAANwAAAAAAAAAAAAIwP8AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-04T05:20:37.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UI.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\UI.h",
+              "RelativeDocumentMoniker": "SnakeClean\\UI.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\UI.h",
+              "RelativeToolTip": "SnakeClean\\UI.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-04T05:11:18.769Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UI.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\UI.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\UI.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\UI.cpp",
+              "RelativeToolTip": "SnakeClean\\UI.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGcBAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-04T05:11:02.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Game.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Game.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\Game.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Game.cpp",
+              "RelativeToolTip": "SnakeClean\\Game.cpp",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAIwE4BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-04T04:00:34.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Game.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Game.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Game.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Game.h",
+              "RelativeToolTip": "SnakeClean\\Game.h",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAAEUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-04T03:59:30.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Apple.cpp",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Apple.cpp",
+              "RelativeDocumentMoniker": "SnakeClean\\Apple.cpp",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Apple.cpp",
+              "RelativeToolTip": "SnakeClean\\Apple.cpp",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAIwFMAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-07-04T03:38:05.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Apple.h",
+              "DocumentMoniker": "D:\\Source\\SnakeClean\\SnakeClean\\Apple.h",
+              "RelativeDocumentMoniker": "SnakeClean\\Apple.h",
+              "ToolTip": "D:\\Source\\SnakeClean\\SnakeClean\\Apple.h",
+              "RelativeToolTip": "SnakeClean\\Apple.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-07-04T03:37:49.95Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

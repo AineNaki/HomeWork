@@ -1,0 +1,11 @@
+﻿  GameMain.cpp
+  Math.cpp
+  Wall.cpp
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(44,45): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(45,45): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(102,49): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(103,49): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(171,34): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+D:\Source\SnakeClean\SnakeClean\Wall.cpp(172,34): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  Создание кода...
+  SnakeClean.vcxproj -> D:\Source\SnakeClean\x64\Debug\SnakeClean.exe
