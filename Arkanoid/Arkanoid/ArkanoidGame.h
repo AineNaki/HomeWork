@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Paddle.h"
 #include "Ball.h"
+#include <vector>
+#include "Brick.h"
 
 namespace ArkanoidGame
 {
@@ -11,6 +13,8 @@ namespace ArkanoidGame
         void Init(sf::RenderWindow& window);
         void Update(float deltaTime);
         void Draw();
+        bool IsBallOutOfBounds() const;
+        bool IsWin() const;
 
     private:
         sf::RenderWindow* window = nullptr;
@@ -19,8 +23,11 @@ namespace ArkanoidGame
         Ball ball;
         sf::Texture paddleTexture;
         sf::Texture ballTexture;
+        std::vector<Brick> bricks;
+        sf::Texture brickTexture;
 
         void checkBallPaddleCollision();
+        void checkBallBrickCollisions();
         void checkBallOutOfBounds();
     };
 }

@@ -1,9 +1,17 @@
 D:\Source\HomeWork\Arkanoid\Arkanoid\Application.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Application.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\ArkanoidGame.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\ArkanoidGame.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\Ball.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Ball.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\Brick.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Brick.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\GameMain.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\GameMain.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\GameOverState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\GameOverState.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\LeaderBoardState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\LeaderBoardState.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\MainMenuState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\MainMenuState.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\Math.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Math.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\Menu.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Menu.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\Paddle.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Paddle.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\PauseState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\PauseState.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\PlayingState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\PlayingState.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\SettingsState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\SettingsState.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\Sound.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\Sound.obj
 D:\Source\HomeWork\Arkanoid\Arkanoid\UI.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\UI.obj
+D:\Source\HomeWork\Arkanoid\Arkanoid\WinState.cpp;D:\Source\HomeWork\Arkanoid\Arkanoid\x64\Debug\WinState.obj

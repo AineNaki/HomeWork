@@ -22,7 +22,6 @@ namespace ArkanoidGame
 
     void Menu::Draw(sf::RenderWindow& window, const sf::Sprite& menuBg)
     {
-        window.clear();
         window.draw(menuBg);
 
         for (size_t i = 0; i < menuItems.size(); ++i)
@@ -30,7 +29,6 @@ namespace ArkanoidGame
             menuItems[i].setFillColor(i == selectedItem ? sf::Color(0, 255, 100) : sf::Color(255, 182, 193));
             window.draw(menuItems[i]);
         }
-        window.display();
     }
 
     void Menu::MoveUp()

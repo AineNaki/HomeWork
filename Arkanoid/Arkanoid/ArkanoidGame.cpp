@@ -28,6 +28,20 @@ namespace ArkanoidGame
 
         paddle.Init(paddleTexture);
         ball.Init(ballTexture);
+        sf::Image img;
+        img.create((unsigned int)BRICK_WIDTH, (unsigned int)BRICK_HEIGHT, sf::Color(200, 100, 50));
+        brickTexture.loadFromImage(img);
+        bricks.clear();
+        for (int i = 0; i < BRICK_COUNT; ++i)
+        {
+            Brick brick;
+            int row = i / 5;            
+            int col = i % 5;            
+            float x = 100.f + col * (BRICK_WIDTH + 10.f);
+            float y = 100.f + row * (BRICK_HEIGHT + 10.f);
+            brick.Init(brickTexture, x, y);
+            bricks.push_back(brick);
+        }
     }
 
     void ArkanoidGame::Update(float deltaTime)
@@ -36,6 +50,7 @@ namespace ArkanoidGame
         ball.Update(deltaTime);
 
         checkBallPaddleCollision();
+        checkBallBrickCollisions();
         checkBallOutOfBounds();
     }
 
@@ -43,6 +58,8 @@ namespace ArkanoidGame
     {
         paddle.Draw(*window);
         ball.Draw(*window);
+        for (auto& brick : bricks)
+            brick.Draw(*window);
     }
     void ArkanoidGame::checkBallPaddleCollision()
     {
@@ -81,9 +98,34 @@ namespace ArkanoidGame
 
     void ArkanoidGame::checkBallOutOfBounds()
     {
-        if (ball.GetPosition().y > SCREEN_HEIGHT + BALL_SIZE)
+        if (IsBallOutOfBounds())
         {
             ball.Init(ballTexture);
         }
+    }
+
+    void ArkanoidGame::checkBallBrickCollisions()
+    {
+        for (auto& brick : bricks)
+        {
+            if (!brick.IsDestroyed() && ball.GetBounds().intersects(brick.GetBounds()))
+            {
+                brick.Destroy();
+                ball.BounceY();
+            }
+        }
+    }
+
+    bool ArkanoidGame::IsBallOutOfBounds() const
+    {
+        return ball.GetPosition().y > SCREEN_HEIGHT + BALL_SIZE;
+    }
+
+    bool ArkanoidGame::IsWin() const
+    {
+        for (const auto& brick : bricks)
+            if (!brick.IsDestroyed())
+                return false;
+        return true;
     }
 }

@@ -20,4 +20,9 @@ namespace ArkanoidGame
 	const float PADDLE_WIDTH = 100.f;
 	const float PADDLE_HEIGHT = 20.f;
 	const float BALL_SIZE = 15.f;
+
+	//Brick
+	const float BRICK_WIDTH = 60.f;
+	const float BRICK_HEIGHT = 20.f;
+	const int BRICK_COUNT = 10;
 }

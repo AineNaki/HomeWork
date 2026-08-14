@@ -1,23 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <stack>
-#include "ArkanoidGame.h"
-#include "Menu.h"
+#include <memory>
+#include <map>
+#include <string>
 #include "UI.h"
+#include "Menu.h"
 #include "Sound.h"
+#include "GameContext.h"
 
 namespace ArkanoidGame
 {
-    enum class GameState
-    {
-        MainMenu,
-        Playing,
-        Pause,
-        Settings,
-        Leaderboard,
-        GameOver,
-        EnterName
-    };
+    class GameStateData;
 
     class Application
     {
@@ -25,32 +19,30 @@ namespace ArkanoidGame
         Application();
         ~Application();
         void Run();
+        void ResetToPlaying();
+        void ResetToMainMenu();
+
+        friend class MainMenuState;
+        friend class PlayingState;
+        friend class PauseState;
+        friend class SettingsState;
+        friend class LeaderboardState;
+        friend class GameOverState;
+        friend class WinState;
 
     private:
         void HandleWindowEvents();
-        void HandleMainMenu();
-        void HandleSettings();
-        void HandleLeaderboard();
-        void HandlePause();
-        void HandleGameOver();
-        void HandleEnterName();
 
         sf::RenderWindow window;
         sf::Clock gameClock;
 
-        ArkanoidGame game;
         UI ui;
         Menu menu;
         Sound sound;
-
         sf::Texture menuBgTexture;
         sf::Sprite menuBg;
-
-        std::stack<GameState> stateStack;
-        int menuSelection = 0;
-        bool gameOverRestartSelected = true;
-        bool waitingForName = false;
-        int finalScore = 0;
         std::map<std::string, int> leaderboard;
+        std::stack<std::unique_ptr<GameStateData>> stateStack;
+        GameContext ctx;
     };
 }

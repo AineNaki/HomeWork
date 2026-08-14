@@ -55,7 +55,7 @@ namespace ArkanoidGame
 
     void DrawDifficultyMenu(UI& ui, sf::RenderWindow& window, int selectedItem, const sf::Sprite& menuBg)
     {
-        window.clear();
+       
         window.draw(menuBg);
 
         sf::Text title;
@@ -81,12 +81,12 @@ namespace ArkanoidGame
             item.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + i * MENU_ITEM_SPACING);
             window.draw(item);
         }
-        window.display();
+       
     }
 
     void DrawSettingsMenu(UI& ui, sf::RenderWindow& window, int selectedItem, float soundVolume, float musicVolume, const sf::Sprite& menuBg)
     {
-        window.clear();
+       
         window.draw(menuBg);
 
         sf::Text title;
@@ -129,12 +129,12 @@ namespace ArkanoidGame
         backText.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + 2 * MENU_ITEM_SPACING);
         window.draw(backText);
 
-        window.display();
+       
     }
 
     void DrawLeaderboard(UI& ui, sf::RenderWindow& window, const std::map<std::string, int>& leaderboard, const sf::Sprite& menuBg)
     {
-        window.clear();
+       
         window.draw(menuBg);
 
         sf::Text title;
@@ -176,12 +176,11 @@ namespace ArkanoidGame
         backText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT - 30);
         window.draw(backText);
 
-        window.display();
     }
 
     void DrawEnterName(UI& ui, sf::RenderWindow& window, const std::string& playerName, bool saveSelected, const sf::Sprite& menuBg)
     {
-        window.clear();
+       
         window.draw(menuBg);
 
         sf::Text title;
@@ -234,7 +233,7 @@ namespace ArkanoidGame
         noText.setPosition(SCREEN_WIDTH / 2.f, 370);
         window.draw(noText);
 
-        window.display();
+      
     }
 
     void DrawGameOverScreen(sf::RenderWindow& window, const UI& ui, const sf::Sprite& menuBg, int finalScore, const std::map<std::string, int>& leaderboard, bool restartSelected)

@@ -1,19 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
 #include "Constants.h"
 
 namespace ArkanoidGame
 {
-    class Ball
+    class Ball : public GameObject
     {
     public:
         void Init(const sf::Texture& texture);
-        void Update(float deltaTime);
-        void Draw(sf::RenderWindow& window) const;
-        sf::FloatRect GetBounds() const;
+        void Update(float deltaTime) override;
+        void Draw(sf::RenderWindow& window) const override;
+        sf::FloatRect GetBounds() const override;
         sf::Vector2f GetPosition() const;
         void BounceX();
         void BounceY();
+
         float GetVelocityX() const { return velocity.x; }
         float GetVelocityY() const { return velocity.y; }
         void SetVelocity(float vx, float vy) { velocity.x = vx; velocity.y = vy; }
@@ -25,5 +27,4 @@ namespace ArkanoidGame
         sf::Vector2f velocity;
         float speed = BALL_SPEED;
     };
-
 }
