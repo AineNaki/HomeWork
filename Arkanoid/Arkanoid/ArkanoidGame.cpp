@@ -51,7 +51,6 @@ namespace ArkanoidGame
 
         checkBallPaddleCollision();
         checkBallBrickCollisions();
-        checkBallOutOfBounds();
     }
 
     void ArkanoidGame::Draw()
@@ -96,23 +95,48 @@ namespace ArkanoidGame
         ball.SetPositionY(paddle.GetPosition().y - PADDLE_HEIGHT / 2.f - BALL_SIZE / 2.f);
     }
 
-    void ArkanoidGame::checkBallOutOfBounds()
-    {
-        if (IsBallOutOfBounds())
-        {
-            ball.Init(ballTexture);
-        }
-    }
-
     void ArkanoidGame::checkBallBrickCollisions()
     {
         for (auto& brick : bricks)
         {
-            if (!brick.IsDestroyed() && ball.GetBounds().intersects(brick.GetBounds()))
-            {
-                brick.Destroy();
-                ball.BounceY();
-            }
+            if (brick.IsDestroyed())
+                continue;
+
+            sf::FloatRect ballBounds = ball.GetBounds();
+            sf::FloatRect brickBounds = brick.GetBounds();
+
+            if (!ballBounds.intersects(brickBounds))
+                continue;
+
+            brick.Destroy();
+
+            // ќпредел€ем, с какой стороны ударилс€ м€ч
+            float ballBottom = ballBounds.top + ballBounds.height;
+            float ballTop = ballBounds.top;
+            float ballLeft = ballBounds.left;
+            float ballRight = ballBounds.left + ballBounds.width;
+
+            float brickBottom = brickBounds.top + brickBounds.height;
+            float brickTop = brickBounds.top;
+            float brickLeft = brickBounds.left;
+            float brickRight = brickBounds.left + brickBounds.width;
+
+            // ѕересечени€ по ос€м
+            float overlapBottom = ballBottom - brickTop;  
+            float overlapTop = brickBottom - ballTop;     
+            float overlapLeft = ballRight - brickLeft;    
+            float overlapRight = brickRight - ballLeft;   
+
+            // Ќаходим минимальное пересечение Ч с этой стороны и ударилс€
+            float minOverlap = std::min(std::min(overlapBottom, overlapTop),
+                std::min(overlapLeft, overlapRight));
+
+            if (minOverlap == overlapBottom || minOverlap == overlapTop)
+                ball.BounceY(); 
+            else
+                ball.BounceX();  
+
+            break;  
         }
     }
 

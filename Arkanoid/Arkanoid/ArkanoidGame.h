@@ -28,6 +28,5 @@ namespace ArkanoidGame
 
         void checkBallPaddleCollision();
         void checkBallBrickCollisions();
-        void checkBallOutOfBounds();
     };
 }
