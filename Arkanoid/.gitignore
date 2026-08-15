@@ -5,3 +5,5 @@ Release/
 *.exe
 *.obj
 *.pdb
+SFML-2.6.1/
+*.user
