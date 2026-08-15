@@ -110,7 +110,7 @@ namespace ArkanoidGame
 
             brick.Destroy();
 
-            // ќпредел€ем, с какой стороны ударилс€ м€ч
+            // Determine which side of the brick the ball hit
             float ballBottom = ballBounds.top + ballBounds.height;
             float ballTop = ballBounds.top;
             float ballLeft = ballBounds.left;
@@ -121,22 +121,22 @@ namespace ArkanoidGame
             float brickLeft = brickBounds.left;
             float brickRight = brickBounds.left + brickBounds.width;
 
-            // ѕересечени€ по ос€м
-            float overlapBottom = ballBottom - brickTop;  
-            float overlapTop = brickBottom - ballTop;     
-            float overlapLeft = ballRight - brickLeft;    
-            float overlapRight = brickRight - ballLeft;   
+            // Overlap along each axis
+            float overlapBottom = ballBottom - brickTop;   // ball entered from below
+            float overlapTop = brickBottom - ballTop;      // ball entered from above
+            float overlapLeft = ballRight - brickLeft;     // ball entered from left
+            float overlapRight = brickRight - ballLeft;    // ball entered from right
 
-            // Ќаходим минимальное пересечение Ч с этой стороны и ударилс€
+            // Find the smallest overlap Ч that's the side of impact
             float minOverlap = std::min(std::min(overlapBottom, overlapTop),
                 std::min(overlapLeft, overlapRight));
 
             if (minOverlap == overlapBottom || minOverlap == overlapTop)
-                ball.BounceY(); 
+                ball.BounceY();  // hit from top or bottom
             else
-                ball.BounceX();  
+                ball.BounceX();  // hit from left or right
 
-            break;  
+            break;
         }
     }
 
