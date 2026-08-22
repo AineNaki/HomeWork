@@ -44,7 +44,7 @@ namespace ArkanoidGame
 
     void SmoothDestroyableBlock::EachTickAction(float deltaTime)
     {
-        // Постепенно делаем блок прозрачным
+        // Gradually make the block transparent
         float alpha = 255.f * currentTime / destroyTime;
         sf::Color newColor = color;
         newColor.a = (sf::Uint8)alpha;
