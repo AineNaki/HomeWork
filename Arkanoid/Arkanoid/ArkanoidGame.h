@@ -1,9 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include <memory>
 #include "Paddle.h"
 #include "Ball.h"
-#include <vector>
-#include "Brick.h"
+#include "Block.h"
 
 namespace ArkanoidGame
 {
@@ -23,10 +24,9 @@ namespace ArkanoidGame
         Ball ball;
         sf::Texture paddleTexture;
         sf::Texture ballTexture;
-        std::vector<Brick> bricks;
-        sf::Texture brickTexture;
+        std::vector<std::shared_ptr<Block>>blocks;
 
         void checkBallPaddleCollision();
-        void checkBallBrickCollisions();
+        void checkBallBlockCollisions();
     };
 }
