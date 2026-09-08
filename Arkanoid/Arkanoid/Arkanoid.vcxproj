@@ -133,10 +133,16 @@
     <ClCompile Include="ArkanoidGame.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="DurableBlockFactory.cpp" />
+    <ClCompile Include="FireBallBonus.cpp" />
+    <ClCompile Include="FragileBlocksBonus.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GlassBlock.cpp" />
+    <ClCompile Include="GlassBlockFactory.cpp" />
     <ClCompile Include="LeaderBoardState.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -145,10 +151,13 @@
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="SmoothDestroyableBlock.cpp" />
+    <ClCompile Include="SmoothDestroyableBlockFactory.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="DurableBlock.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="UnbreakableBlock.cpp" />
+    <ClCompile Include="UnbreakableBlockFactory.cpp" />
+    <ClCompile Include="WidePaddleBonus.cpp" />
     <ClCompile Include="WinState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,15 +165,26 @@
     <ClInclude Include="ArkanoidGame.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="BlockFactory.h" />
+    <ClInclude Include="Bonus.h" />
     <ClInclude Include="Collidable.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DurableBlockFactory.h" />
+    <ClInclude Include="FireBallBonus.h" />
+    <ClInclude Include="FragileBlocksBonus.h" />
     <ClInclude Include="GameContext.h" />
+    <ClInclude Include="GameMemento.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameOverState.h" />
+    <ClInclude Include="GameSettings.h" />
     <ClInclude Include="GameStateData.h" />
     <ClInclude Include="GlassBlock.h" />
+    <ClInclude Include="GlassBlockFactory.h" />
     <ClInclude Include="IDelayedAction.h" />
+    <ClInclude Include="IObservable.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="LeaderBoardState.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Menu.h" />
@@ -173,10 +193,13 @@
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="SettingsState.h" />
     <ClInclude Include="SmoothDestroyableBlock.h" />
+    <ClInclude Include="SmoothDestroyableBlockFactory.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="DurableBlock.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UnbreakableBlock.h" />
+    <ClInclude Include="UnbreakableBlockFactory.h" />
+    <ClInclude Include="WidePaddleBonus.h" />
     <ClInclude Include="WinState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

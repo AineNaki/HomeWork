@@ -1,6 +1,7 @@
 #include "WinState.h"
 #include "Application.h"
 #include "GameContext.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -41,7 +42,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color::Green);
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f - 80);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetScreenHeight() / 2.f - 80);
         window.draw(title);
 
         sf::Text restartBtn;
@@ -51,7 +52,7 @@ namespace ArkanoidGame
         restartBtn.setFillColor(restartSelected ? sf::Color::Green : sf::Color::White);
         sf::FloatRect rb = restartBtn.getLocalBounds();
         restartBtn.setOrigin(rb.width / 2.f, rb.height / 2.f);
-        restartBtn.setPosition(SCREEN_WIDTH / 2.f - 70, SCREEN_HEIGHT - 60);
+        restartBtn.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f - 70, GameWorld::GetInstance().GetScreenHeight() - 60);
         window.draw(restartBtn);
 
         sf::Text menuBtn;
@@ -61,7 +62,7 @@ namespace ArkanoidGame
         menuBtn.setFillColor(!restartSelected ? sf::Color::Green : sf::Color::White);
         sf::FloatRect mb = menuBtn.getLocalBounds();
         menuBtn.setOrigin(mb.width / 2.f, mb.height / 2.f);
-        menuBtn.setPosition(SCREEN_WIDTH / 2.f + 70, SCREEN_HEIGHT - 60);
+        menuBtn.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f + 70, GameWorld::GetInstance().GetScreenHeight() - 60);
         window.draw(menuBtn);
     }
 }

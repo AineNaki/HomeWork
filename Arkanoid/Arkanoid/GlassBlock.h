@@ -11,6 +11,7 @@ namespace ArkanoidGame
     public:
         GlassBlock(const sf::Vector2f& position);
         ~GlassBlock() = default;
+        int GetScore() const override { return 5; }
 
         bool ShouldBounceBall() const override;
     };

@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "GameSettings.h"
 #include <cassert>
 #include <string>
 #include <vector>
@@ -17,7 +18,9 @@ namespace ArkanoidGame
         ui.pauseText.setFillColor(sf::Color::Yellow);
         sf::FloatRect pBounds = ui.pauseText.getLocalBounds();
         ui.pauseText.setOrigin(pBounds.width / 2.f, pBounds.height / 2.f);
-        ui.pauseText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f - 60);
+              ui.pauseText.setPosition(
+            GameWorld::GetInstance().GetScreenWidth() / 2.f,
+            GameWorld::GetInstance().GetScreenHeight() / 2.f - 60.f);
 
         ui.pauseMenuText.setFont(ui.font);
         ui.pauseMenuText.setString("Press P to resume\nPress Esc to quit");
@@ -25,15 +28,27 @@ namespace ArkanoidGame
         ui.pauseMenuText.setFillColor(sf::Color(255, 182, 193));
         sf::FloatRect pmBounds = ui.pauseMenuText.getLocalBounds();
         ui.pauseMenuText.setOrigin(pmBounds.width / 2.f, pmBounds.height / 2.f);
-        ui.pauseMenuText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f + 20);
+        ui.pauseMenuText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetScreenHeight() / 2.f + 20);
 
-        // Ñ÷¸ò
+        //SCORE
         ui.scoreText.setFont(ui.font);
         ui.scoreText.setCharacterSize(24);
         ui.scoreText.setFillColor(sf::Color(255, 182, 193));
-        ui.scoreText.setPosition(SCREEN_WIDTH - 10.f, 10.f);
+        ui.scoreText.setPosition(GameWorld::GetInstance().GetScreenWidth() - 10.f, 10.f);
         ui.scoreText.setOrigin(ui.scoreText.getLocalBounds().width, 0.f);
         ui.scoreText.setString("Score: 0");
+        //LIVES
+        ui.livesText.setFont(ui.font);
+        ui.livesText.setCharacterSize(24);
+        ui.livesText.setFillColor(sf::Color::Red);
+        ui.livesText.setPosition(10.f, 10.f);
+        ui.livesText.setString("Lives: 3");
+
+        //TIMER
+        ui.bonusTimerText.setFont(ui.font);
+        ui.bonusTimerText.setCharacterSize(20);
+        ui.bonusTimerText.setFillColor(sf::Color::Yellow);
+        ui.bonusTimerText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f - 30.f, 10.f);
     }
 
     void UpdateUIScore(UI& ui, int score)
@@ -65,7 +80,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color::Yellow);
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, MENU_TITLE_Y);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuTitleY());
         window.draw(title);
 
         std::vector<std::string> items = { "1. Easy", "2. Normal", "3. Hard", "4. Expert", "5. Insane", "6. Back" };
@@ -78,7 +93,8 @@ namespace ArkanoidGame
             item.setFillColor(i == selectedItem ? sf::Color::Green : sf::Color(255, 182, 193));
             sf::FloatRect b = item.getLocalBounds();
             item.setOrigin(b.width / 2.f, b.height / 2.f);
-            item.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + i * MENU_ITEM_SPACING);
+            item.setPosition(GameWorld::GetInstance().GetScreenWidth() /
+                2.f, GameWorld::GetInstance().GetMenuItemsStartY() + i * GameWorld::GetInstance().GetMenuItemSpacing());
             window.draw(item);
         }
        
@@ -96,7 +112,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color::Yellow);
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, MENU_TITLE_Y);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuTitleY());
         window.draw(title);
 
         sf::Text soundText;
@@ -106,7 +122,7 @@ namespace ArkanoidGame
         soundText.setFillColor(selectedItem == 0 ? sf::Color::Green : sf::Color(255, 182, 193));
         sf::FloatRect sb = soundText.getLocalBounds();
         soundText.setOrigin(sb.width / 2.f, sb.height / 2.f);
-        soundText.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y);
+        soundText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuItemsStartY());
         window.draw(soundText);
 
         sf::Text musicText;
@@ -116,7 +132,7 @@ namespace ArkanoidGame
         musicText.setFillColor(selectedItem == 1 ? sf::Color::Green : sf::Color(255, 182, 193));
         sf::FloatRect mb = musicText.getLocalBounds();
         musicText.setOrigin(mb.width / 2.f, mb.height / 2.f);
-        musicText.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + MENU_ITEM_SPACING);
+        musicText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuItemsStartY() + GameWorld::GetInstance().GetMenuItemSpacing());
         window.draw(musicText);
 
         sf::Text backText;
@@ -126,7 +142,7 @@ namespace ArkanoidGame
         backText.setFillColor(selectedItem == 2 ? sf::Color::Green : sf::Color(255, 182, 193));
         sf::FloatRect bb = backText.getLocalBounds();
         backText.setOrigin(bb.width / 2.f, bb.height / 2.f);
-        backText.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + 2 * MENU_ITEM_SPACING);
+        backText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuItemsStartY() + 2 * GameWorld::GetInstance().GetMenuItemSpacing());
         window.draw(backText);
 
        
@@ -144,7 +160,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color::Yellow);
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, MENU_TITLE_Y);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuTitleY());
         window.draw(title);
 
         std::vector<std::pair<std::string, int>> vec(leaderboard.begin(), leaderboard.end());
@@ -162,7 +178,7 @@ namespace ArkanoidGame
             entry.setFillColor(sf::Color(255, 182, 193));
             sf::FloatRect eb = entry.getLocalBounds();
             entry.setOrigin(eb.width / 2.f, eb.height / 2.f);
-            entry.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + i * MENU_ITEM_SPACING);
+            entry.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuItemsStartY() + i * GameWorld::GetInstance().GetMenuItemSpacing());
             window.draw(entry);
         }
 
@@ -173,7 +189,7 @@ namespace ArkanoidGame
         backText.setFillColor(sf::Color::White);
         sf::FloatRect bb = backText.getLocalBounds();
         backText.setOrigin(bb.width / 2.f, bb.height / 2.f);
-        backText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT - 30);
+        backText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetScreenHeight() - 30);
         window.draw(backText);
 
     }
@@ -190,7 +206,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color::Yellow);
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, 150);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 150);
         window.draw(title);
 
         sf::Text nameText;
@@ -200,7 +216,7 @@ namespace ArkanoidGame
         nameText.setFillColor(sf::Color(255, 182, 193));
         sf::FloatRect nb = nameText.getLocalBounds();
         nameText.setOrigin(nb.width / 2.f, nb.height / 2.f);
-        nameText.setPosition(SCREEN_WIDTH / 2.f, 220);
+        nameText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 220);
         window.draw(nameText);
 
         sf::Text saveText;
@@ -210,7 +226,7 @@ namespace ArkanoidGame
         saveText.setFillColor(sf::Color(255, 182, 193));
         sf::FloatRect sb = saveText.getLocalBounds();
         saveText.setOrigin(sb.width / 2.f, sb.height / 2.f);
-        saveText.setPosition(SCREEN_WIDTH / 2.f, 280);
+        saveText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 280);
         window.draw(saveText);
 
         sf::Text yesText;
@@ -220,7 +236,7 @@ namespace ArkanoidGame
         yesText.setFillColor(saveSelected ? sf::Color::Green : sf::Color(255, 182, 193));
         sf::FloatRect yb = yesText.getLocalBounds();
         yesText.setOrigin(yb.width / 2.f, yb.height / 2.f);
-        yesText.setPosition(SCREEN_WIDTH / 2.f, 330);
+        yesText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 330);
         window.draw(yesText);
 
         sf::Text noText;
@@ -230,7 +246,7 @@ namespace ArkanoidGame
         noText.setFillColor(!saveSelected ? sf::Color::Green : sf::Color(255, 182, 193));
         sf::FloatRect nob = noText.getLocalBounds();
         noText.setOrigin(nob.width / 2.f, nob.height / 2.f);
-        noText.setPosition(SCREEN_WIDTH / 2.f, 370);
+        noText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 370);
         window.draw(noText);
 
       
@@ -247,7 +263,7 @@ namespace ArkanoidGame
         gameOverTitle.setFillColor(sf::Color::Red);
         sf::FloatRect gob = gameOverTitle.getLocalBounds();
         gameOverTitle.setOrigin(gob.width / 2.f, gob.height / 2.f);
-        gameOverTitle.setPosition(SCREEN_WIDTH / 2.f, 80);
+        gameOverTitle.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 80);
         window.draw(gameOverTitle);
 
         sf::Text finalScoreText;
@@ -258,7 +274,7 @@ namespace ArkanoidGame
         finalScoreText.setOutlineThickness(2.f);
         finalScoreText.setOutlineColor(sf::Color::White);
         sf::FloatRect fb = finalScoreText.getLocalBounds();
-        finalScoreText.setPosition(SCREEN_WIDTH - 10.f, 10.f);
+        finalScoreText.setPosition(GameWorld::GetInstance().GetScreenWidth() - 10.f, 10.f);
         finalScoreText.setOrigin(finalScoreText.getLocalBounds().width, 0.f);
         window.draw(finalScoreText);
 
@@ -269,7 +285,7 @@ namespace ArkanoidGame
         title.setFillColor(sf::Color(255, 165, 0));
         sf::FloatRect tb = title.getLocalBounds();
         title.setOrigin(tb.width / 2.f, tb.height / 2.f);
-        title.setPosition(SCREEN_WIDTH / 2.f, 150);
+        title.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 150);
         window.draw(title);
 
         std::vector<std::pair<std::string, int>> vec(leaderboard.begin(), leaderboard.end());
@@ -287,7 +303,7 @@ namespace ArkanoidGame
             entry.setFillColor(sf::Color(0, 200, 100));
             sf::FloatRect eb = entry.getLocalBounds();
             entry.setOrigin(eb.width / 2.f, eb.height / 2.f);
-            entry.setPosition(SCREEN_WIDTH / 2.f, 185 + i * 30);
+            entry.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, 185 + i * 30);
             window.draw(entry);
         }
 
@@ -298,7 +314,7 @@ namespace ArkanoidGame
         restartBtn.setFillColor(restartSelected ? sf::Color::Green : sf::Color(0, 200, 100));
         sf::FloatRect rb = restartBtn.getLocalBounds();
         restartBtn.setOrigin(rb.width / 2.f, rb.height / 2.f);
-        restartBtn.setPosition(SCREEN_WIDTH / 2.f - 70, SCREEN_HEIGHT - 75);
+        restartBtn.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f - 70, GameWorld::GetInstance().GetScreenHeight() - 75);
         window.draw(restartBtn);
 
         sf::Text menuBtn;
@@ -308,7 +324,7 @@ namespace ArkanoidGame
         menuBtn.setFillColor(!restartSelected ? sf::Color::Green : sf::Color(0, 200, 100));
         sf::FloatRect mb = menuBtn.getLocalBounds();
         menuBtn.setOrigin(mb.width / 2.f, mb.height / 2.f);
-        menuBtn.setPosition(SCREEN_WIDTH / 2.f + 70, SCREEN_HEIGHT - 75);
+        menuBtn.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f + 70, GameWorld::GetInstance().GetScreenHeight() - 75);
         window.draw(menuBtn);
     }
 
@@ -321,7 +337,16 @@ namespace ArkanoidGame
         goText.setFillColor(sf::Color::Green);
         sf::FloatRect gb = goText.getLocalBounds();
         goText.setOrigin(gb.width / 2.f, gb.height / 2.f);
-        goText.setPosition(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f);
+        goText.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetScreenHeight() / 2.f);
         window.draw(goText);
+    }
+    void UpdateLives(UI& ui, int lives)
+    {
+        ui.livesText.setString("Lives: " + std::to_string(lives));
+    }
+    void UpdateBonusTimer(UI& ui, float timeLeft)
+    {
+        int seconds = (int)timeLeft;
+        ui.bonusTimerText.setString("Bonus: " + std::to_string(seconds) + "s");
     }
 }

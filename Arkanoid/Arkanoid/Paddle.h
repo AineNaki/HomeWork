@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Constants.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -13,10 +14,15 @@ namespace ArkanoidGame
         void Draw(sf::RenderWindow& window) const override;
         sf::FloatRect GetBounds() const override;
         sf::Vector2f GetPosition() const;
+        //mode
+        void SetWideMode(bool wide) { wideMode = wide; }
+        bool IsWideMode() const { return wideMode; }
 
     private:
         sf::Sprite sprite;
         sf::Vector2f position;
-        float speed = PADDLE_SPEED;
+        float speed = 0.f;
+        //mode
+        bool wideMode = false;
     };
 }

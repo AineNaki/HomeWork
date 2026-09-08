@@ -1,4 +1,5 @@
 #include "UnbreakableBlock.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -6,11 +7,15 @@ namespace ArkanoidGame
         : Block(position, sf::Color::Red)
     {
         sf::Image img;
-        img.create((unsigned int)BLOCK_WIDTH, (unsigned int)BLOCK_HEIGHT, color);
+        img.create((unsigned int)GameWorld::GetInstance().GetBlockWidth(),
+            (unsigned int)GameWorld::GetInstance().GetBlockHeight(),
+            color);
         texture.loadFromImage(img);
 
         sprite.setTexture(texture);
-        SetSpriteSize(sprite, BLOCK_WIDTH, BLOCK_HEIGHT);
+        SetSpriteSize(sprite,
+            GameWorld::GetInstance().GetBlockWidth(),
+            GameWorld::GetInstance().GetBlockHeight());
         SetSpriteRelativeOrigin(sprite, 0.5f, 0.5f);
         sprite.setPosition(position);
     }

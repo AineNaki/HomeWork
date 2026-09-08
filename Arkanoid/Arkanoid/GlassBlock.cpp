@@ -1,4 +1,5 @@
 #include "GlassBlock.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -6,11 +7,15 @@ namespace ArkanoidGame
         : Block(position, sf::Color(255, 255, 255, 100))
     {
         sf::Image img;
-        img.create((unsigned int)BLOCK_WIDTH, (unsigned int)BLOCK_HEIGHT, sf::Color::White);
+        img.create((unsigned int)GameWorld::GetInstance().GetBlockWidth(),
+            (unsigned int)GameWorld::GetInstance().GetBlockHeight(),
+            sf::Color::White);
         texture.loadFromImage(img);
 
         sprite.setTexture(texture);
-        SetSpriteSize(sprite, BLOCK_WIDTH, BLOCK_HEIGHT);
+        SetSpriteSize(sprite,
+            GameWorld::GetInstance().GetBlockWidth(),
+            GameWorld::GetInstance().GetBlockHeight());
         SetSpriteRelativeOrigin(sprite, 0.5f, 0.5f);
         sprite.setPosition(position);
         sprite.setColor(color);
@@ -18,7 +23,7 @@ namespace ArkanoidGame
 
     void GlassBlock::OnHit()
     {
-        destroyed = true;
+        Destroy();
     }
 
     bool GlassBlock::ShouldBounceBall() const

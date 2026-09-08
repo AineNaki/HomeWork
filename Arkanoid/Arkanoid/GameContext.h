@@ -20,6 +20,6 @@ namespace ArkanoidGame
         Sound& sound;
         sf::Sprite& menuBg;
         std::map<std::string, int>& leaderboard;
-        std::stack<std::unique_ptr<GameStateData>>& stateStack;
+        std::stack<std::shared_ptr<GameStateData>>& stateStack;
     };
 }

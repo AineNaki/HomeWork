@@ -12,6 +12,7 @@ namespace ArkanoidGame
     public:
         SmoothDestroyableBlock(const sf::Vector2f& position);
         ~SmoothDestroyableBlock() = default;
+        int GetScore() const override { return 20; }
 
         void Update(float deltaTime) override;
 

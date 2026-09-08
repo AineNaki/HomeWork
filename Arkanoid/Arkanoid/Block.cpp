@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -18,11 +19,6 @@ namespace ArkanoidGame
         return sprite.getGlobalBounds();
     }
 
-    bool Block::IsDestroyed() const
-    {
-        return destroyed;
-    }
-
     sf::FloatRect Block::GetRect() const
     {
         return sprite.getGlobalBounds();
@@ -38,5 +34,16 @@ namespace ArkanoidGame
             return false;
 
         return GetRect().intersects(gameObject->GetBounds());
+    }
+
+
+
+    void Block::Destroy()
+    {
+        if (!destroyed)
+        {
+            destroyed = true;
+            Emit();  
+        }
     }
 }

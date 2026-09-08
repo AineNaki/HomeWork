@@ -1,9 +1,15 @@
-#include "ArkanoidGame.h"
-#include "Constants.h"
+﻿#include "ArkanoidGame.h"
+#include "GameSettings.h"
+#include "DurableBlockFactory.h"
+#include "SmoothDestroyableBlockFactory.h"
 #include "UnbreakableBlock.h"
-#include "SmoothDestroyableBlock.h"
-#include "DurableBlock.h"
-#include "GlassBlock.h"
+#include "UnbreakableBlockFactory.h"
+#include "GlassBlockFactory.h"
+#include "LevelLoader.h"
+#include "FireBallBonus.h"
+#include "WidePaddleBonus.h"
+#include "FragileBlocksBonus.h"
+
 
 namespace ArkanoidGame
 {
@@ -14,17 +20,20 @@ namespace ArkanoidGame
         // Paddle texture
         {
             sf::Image img;
-            img.create((unsigned int)PADDLE_WIDTH, (unsigned int)PADDLE_HEIGHT, sf::Color::White);
+            img.create((unsigned int)GameWorld::GetInstance().GetPaddleWidth(),
+                (unsigned int)GameWorld::GetInstance().GetPaddleHeight(),
+                sf::Color::White);
             paddleTexture.loadFromImage(img);
         }
 
         // Ball texture (circle)
         {
+            float ballSize = GameWorld::GetInstance().GetBallSize();
             sf::RenderTexture renderTex;
-            renderTex.create((unsigned int)BALL_SIZE, (unsigned int)BALL_SIZE);
+            renderTex.create((unsigned int)ballSize, (unsigned int)ballSize);
             renderTex.clear(sf::Color::Transparent);
 
-            sf::CircleShape circle(BALL_SIZE / 2.f);
+            sf::CircleShape circle(ballSize / 2.f);
             circle.setFillColor(sf::Color::White);
             renderTex.draw(circle);
             renderTex.display();
@@ -34,24 +43,12 @@ namespace ArkanoidGame
 
         paddle.Init(paddleTexture);
         ball.Init(ballTexture);
-        // 20 blocks: 2 rows of 10
-        blocks.clear();
-        for (int i = 0; i < 18; ++i)
-        {
-            int row = i / 6;              // 0, 1, 2
-            int col = i % 6;              // 0..5
-            float x = 100.f + col * 110.f;
-            float y = 80.f + row * 45.f;
+        startState = SaveState();
+        hasStartState = true;
 
-            if (i == 2 || i == 7 || i == 12)
-                blocks.push_back(std::make_shared<UnbreakableBlock>(sf::Vector2f(x, y)));
-            else if (i == 5 || i == 15)
-                blocks.push_back(std::make_shared<GlassBlock>(sf::Vector2f(x, y)));
-            else if (i % 2 == 0)
-                blocks.push_back(std::make_shared<SmoothDestroyableBlock>(sf::Vector2f(x, y)));
-            else
-                blocks.push_back(std::make_shared<DurableBlock>(sf::Vector2f(x, y)));
-        }
+        LevelLoader levelLoader;
+        blocks = levelLoader.LoadLevel(RESOURCES_PATH + "levels.config");
+        bonuses.clear();
     }
 
     void ArkanoidGame::Update(float deltaTime)
@@ -64,15 +61,67 @@ namespace ArkanoidGame
 
         checkBallPaddleCollision();
         checkBallBlockCollisions();
+        // upd bonus
+        for (auto& bonus : bonuses)
+            bonus->Update(deltaTime);
+
+        // check
+        for (auto& bonus : bonuses)
+        {
+            if (bonus->IsActive() && paddle.GetBounds().intersects(bonus->GetBounds()))
+            {
+                bonus->Apply(ball, paddle, blocks);
+                activeBonus = bonus;
+                bonusTimer = 10.f;
+                bonus->Deactivate();
+            }
+        }
+
+        // Bonus timer
+        if (bonusTimer > 0.f)
+        {
+            bonusTimer -= deltaTime;
+            if (bonusTimer <= 0.f && activeBonus)
+            {
+                activeBonus->Expire(ball, paddle, blocks);
+                activeBonus = nullptr;
+            }
+        }
+
+        if (IsBallOutOfBounds())
+        {
+            --lives;
+            if (lives > 0 && hasStartState)
+            {
+                RestoreState(startState);
+            }
+        }
+    }
+
+    GameMemento ArkanoidGame::SaveState() const
+    {
+        return GameMemento(lives, ball.GetPosition());
+    }
+
+    void ArkanoidGame::RestoreState(const GameMemento& memento)
+    {
+        ball.SetPositionX(memento.GetBallPosition().x);
+        ball.SetPositionY(memento.GetBallPosition().y);
     }
 
     void ArkanoidGame::Draw()
     {
         paddle.Draw(*window);
         ball.Draw(*window);
+
         for (const auto& block : blocks)
             block->Draw(*window);
+
+        // Бонусы
+        for (const auto& bonus : bonuses)
+            bonus->Draw(*window);
     }
+
     void ArkanoidGame::checkBallPaddleCollision()
     {
         // Check if ball intersects the paddle
@@ -85,7 +134,7 @@ namespace ArkanoidGame
         float offset = ballX - paddleCenter;  // negative = left, positive = right
 
         // Normalize offset to [-1, 1] range
-        float maxOffset = PADDLE_WIDTH / 2.f;
+        float maxOffset = GameWorld::GetInstance().GetPaddleWidth() / 2.f;
         float factor = offset / maxOffset;
         if (factor < -1.f) factor = -1.f;
         if (factor > 1.f)  factor = 1.f;
@@ -105,8 +154,11 @@ namespace ArkanoidGame
         ball.SetVelocity(newVx, newVy);
 
         // Prevent ball from sticking inside the paddle
-        ball.SetPositionY(paddle.GetPosition().y - PADDLE_HEIGHT / 2.f - BALL_SIZE / 2.f);
+        float paddleHeight = GameWorld::GetInstance().GetPaddleHeight();
+        float ballSize = GameWorld::GetInstance().GetBallSize();
+        ball.SetPositionY(paddle.GetPosition().y - paddleHeight / 2.f - ballSize / 2.f);
     }
+
     void ArkanoidGame::checkBallBlockCollisions()
     {
         // Prevent multiple collisions in the same frame
@@ -128,9 +180,26 @@ namespace ArkanoidGame
 
             // Let the block handle the hit (each type reacts differently)
             block->Hit();
+            //bonus chance
+            if (block->IsDestroyed())
+            {
+                if (rand() % 100 < 10)  // 10% шанс
+                {
+                    int type = rand() % 3;
+                    if (type == 0)
+                        bonuses.push_back(std::make_shared<FireBallBonus>(sf::Vector2f(block->GetBounds().left, block->GetBounds().top)));
+                    else if (type == 1)
+                        bonuses.push_back(std::make_shared<WidePaddleBonus>(sf::Vector2f(block->GetBounds().left, block->GetBounds().top)));
+                    else
+                        bonuses.push_back(std::make_shared<FragileBlocksBonus>(sf::Vector2f(block->GetBounds().left, block->GetBounds().top)));
+                }
+            }
 
             // Glass blocks don't bounce the ball
             if (!block->ShouldBounceBall())
+                continue;
+            // Fire ball doesn't bounce — it flies through blocks
+            if (ball.IsFireMode())
                 continue;
 
             ballCollidedThisFrame = true;
@@ -156,9 +225,11 @@ namespace ArkanoidGame
             float overlapLeft = ballRight - blockLeft;     // ball entered from left
             float overlapRight = blockRight - ballLeft;    // ball entered from right
 
-            // Find the smallest overlap � that's the side of impact
+            // Find the smallest overlap — that's the side of impact
             float minOverlap = std::min(std::min(overlapBottom, overlapTop),
                 std::min(overlapLeft, overlapRight));
+
+            float ballSize = GameWorld::GetInstance().GetBallSize();
 
             if (minOverlap == overlapBottom || minOverlap == overlapTop)
             {
@@ -167,9 +238,9 @@ namespace ArkanoidGame
 
                 // Push the ball out of the block to prevent sticking
                 if (minOverlap == overlapBottom)
-                    ball.SetPositionY(blockTop - BALL_SIZE / 2.f);
+                    ball.SetPositionY(blockTop - ballSize / 2.f);
                 else
-                    ball.SetPositionY(blockBottom + BALL_SIZE / 2.f);
+                    ball.SetPositionY(blockBottom + ballSize / 2.f);
             }
             else
             {
@@ -178,16 +249,16 @@ namespace ArkanoidGame
 
                 // Push the ball out of the block to prevent sticking
                 if (minOverlap == overlapLeft)
-                    ball.SetPositionX(blockLeft - BALL_SIZE / 2.f);
+                    ball.SetPositionX(blockLeft - ballSize / 2.f);
                 else
-                    ball.SetPositionX(blockRight + BALL_SIZE / 2.f);
+                    ball.SetPositionX(blockRight + ballSize / 2.f);
             }
         }
     }
 
     bool ArkanoidGame::IsBallOutOfBounds() const
     {
-        return ball.GetPosition().y > SCREEN_HEIGHT + BALL_SIZE;
+        return ball.GetPosition().y > GameWorld::GetInstance().GetScreenHeight() + GameWorld::GetInstance().GetBallSize();
     }
 
     bool ArkanoidGame::IsWin() const
@@ -202,5 +273,18 @@ namespace ArkanoidGame
                 return false;
         }
         return true;
+    }
+    int ArkanoidGame::GetBreakableBlocksCount() const
+    {
+        int count = 0;
+        for (const auto& block : blocks)
+        {
+          
+            if (dynamic_cast<UnbreakableBlock*>(block.get()) != nullptr)
+                continue;
+
+            ++count;
+        }
+        return count;
     }
 }

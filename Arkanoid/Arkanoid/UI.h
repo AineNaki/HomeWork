@@ -10,6 +10,8 @@ namespace ArkanoidGame
         sf::Text scoreText;
         sf::Text pauseText;
         sf::Text pauseMenuText;
+        sf::Text livesText;
+        sf::Text bonusTimerText;
     };
 
     void InitUI(UI& ui);
@@ -21,4 +23,6 @@ namespace ArkanoidGame
     void DrawEnterName(UI& ui, sf::RenderWindow& window, const std::string& playerName, bool saveSelected, const sf::Sprite& menuBg);
     void DrawGameOverScreen(sf::RenderWindow& window, const UI& ui, const sf::Sprite& menuBg, int finalScore, const std::map<std::string, int>& leaderboard, bool restartSelected);
     void DrawGoText(sf::RenderWindow& window, const sf::Font& font);
+    void UpdateLives(UI& ui, int lives);
+    void UpdateBonusTimer(UI& ui, float timeLeft);
 }

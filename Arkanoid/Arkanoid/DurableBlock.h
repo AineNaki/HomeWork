@@ -11,6 +11,7 @@ namespace ArkanoidGame
     public:
         DurableBlock(const sf::Vector2f& position);
         ~DurableBlock() = default;
+        int GetScore() const override { return 10; }
 
     private:
         int hitCount = 3;

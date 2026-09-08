@@ -1,4 +1,5 @@
 #include "SmoothDestroyableBlock.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -6,12 +7,18 @@ namespace ArkanoidGame
         : Block(position, sf::Color::Green)
     {
         sf::Image img;
-        img.create((unsigned int)BLOCK_WIDTH, (unsigned int)BLOCK_HEIGHT, color);
+        img.create((unsigned int)GameWorld::GetInstance().GetBlockWidth(),
+            (unsigned int)GameWorld::GetInstance().GetBlockHeight(),
+            sf::Color::White);
         texture.loadFromImage(img);
+
         sprite.setTexture(texture);
-        SetSpriteSize(sprite, BLOCK_WIDTH, BLOCK_HEIGHT);
+        SetSpriteSize(sprite,
+            GameWorld::GetInstance().GetBlockWidth(),
+            GameWorld::GetInstance().GetBlockHeight());
         SetSpriteRelativeOrigin(sprite, 0.5f, 0.5f);
         sprite.setPosition(position);
+        sprite.setColor(color);
     }
 
     void SmoothDestroyableBlock::Update(float deltaTime)
@@ -34,12 +41,12 @@ namespace ArkanoidGame
     void SmoothDestroyableBlock::OnHit()
     {
         if (!isTimerStarted)
-            StartTimer(BREAK_DELAY);
+            StartTimer(GameWorld::GetInstance().GetBreakDelay());
     }
 
     void SmoothDestroyableBlock::FinalAction()
     {
-        destroyed = true;
+        Destroy();
     }
 
     void SmoothDestroyableBlock::EachTickAction(float deltaTime)

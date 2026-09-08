@@ -23,11 +23,11 @@ namespace ArkanoidGame
         {
             int sel = ctx.menu.GetSelectedItem();
             if (sel == 0)
-                ctx.stateStack.push(std::make_unique<PlayingState>());
+                ctx.stateStack.push(std::make_shared<PlayingState>());
             else if (sel == 1)
-                ctx.stateStack.push(std::make_unique<LeaderboardState>());
+                ctx.stateStack.push(std::make_shared<LeaderboardState>());
             else if (sel == 2)
-                ctx.stateStack.push(std::make_unique<SettingsState>());
+                ctx.stateStack.push(std::make_shared<SettingsState>());
             else if (sel == 3)
                 ctx.window.close();
             sf::sleep(sf::milliseconds(200));

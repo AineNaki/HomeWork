@@ -1,5 +1,3 @@
-#include <cstdlib>
-#include <ctime>
 #include "Application.h"
 #include "MainMenuState.h"
 #include "PlayingState.h"
@@ -8,11 +6,14 @@
 #include "LeaderboardState.h"
 #include "GameOverState.h"
 #include "Constants.h"
-
+#include "GameSettings.h"
+#include <cstdlib>
+#include <ctime>
 namespace ArkanoidGame
 {
     Application::Application()
-        : window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Arkanoid"),
+        : window(sf::VideoMode((unsigned int)GameWorld::GetInstance().GetScreenWidth(),
+            (unsigned int)GameWorld::GetInstance().GetScreenHeight()), "Arkanoid"),
         ctx{ window, ui, menu, sound, menuBg, leaderboard, stateStack }
     {
         unsigned int seed = static_cast<unsigned int>(time(nullptr));
@@ -26,7 +27,8 @@ namespace ArkanoidGame
 
         {
             sf::Image img;
-            img.create(SCREEN_WIDTH, SCREEN_HEIGHT, sf::Color(20, 20, 40));
+            img.create((unsigned int)GameWorld::GetInstance().GetScreenWidth(),
+                       (unsigned int)GameWorld::GetInstance().GetScreenHeight(), sf::Color(20, 20, 40));
             menuBgTexture.loadFromImage(img);
             menuBg.setTexture(menuBgTexture);
         }
@@ -35,7 +37,7 @@ namespace ArkanoidGame
         leaderboard["Player2"] = 50;
         leaderboard["Player3"] = 30;
 
-        stateStack.push(std::make_unique<MainMenuState>());
+        stateStack.push(std::make_shared<MainMenuState>());
 
     }
 
@@ -67,14 +69,14 @@ namespace ArkanoidGame
     {
         while (!stateStack.empty())
             stateStack.pop();
-        stateStack.push(std::make_unique<PlayingState>());
+        stateStack.push(std::make_shared<PlayingState>());
     }
 
     void Application::ResetToMainMenu()
     {
         while (!stateStack.empty())
             stateStack.pop();
-        stateStack.push(std::make_unique<MainMenuState>());
+        stateStack.push(std::make_shared<MainMenuState>());
     }
 
     void Application::HandleWindowEvents()

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Constants.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -23,11 +24,19 @@ namespace ArkanoidGame
         void SetPositionX(float x) { position.x = x; sprite.setPosition(position); }
         // Set ball Y position and update sprite immediately
         void SetPositionY(float y) { position.y = y; sprite.setPosition(position); }
+        //fireball
+        void SetFireMode(bool fire)
+        {
+            fireMode = fire;
+            sprite.setColor(fire ? sf::Color(255, 100, 0) : sf::Color::White);
+        }
+        bool IsFireMode() const { return fireMode; }
 
     private:
         sf::Sprite sprite;
         sf::Vector2f position;
         sf::Vector2f velocity;
-        float speed = BALL_SPEED;
+        float speed = 0.f;
+        bool fireMode = false;
     };
 }

@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "Constants.h"
+#include "GameSettings.h"
 
 namespace ArkanoidGame
 {
@@ -15,7 +16,7 @@ namespace ArkanoidGame
             item.setFillColor(sf::Color(255, 182, 193));
             sf::FloatRect bounds = item.getLocalBounds();
             item.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
-            item.setPosition(SCREEN_WIDTH / 2.f, MENU_ITEMS_START_Y + i * MENU_ITEM_SPACING);
+            item.setPosition(GameWorld::GetInstance().GetScreenWidth() / 2.f, GameWorld::GetInstance().GetMenuItemsStartY() + i * GameWorld::GetInstance().GetMenuItemSpacing());
             menuItems.push_back(item);
         }
     }
