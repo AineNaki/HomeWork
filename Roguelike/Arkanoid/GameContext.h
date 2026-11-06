@@ -1,0 +1,25 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <stack>
+#include <memory>
+#include <map>
+#include <string>
+#include "UI.h"
+#include "Menu.h"
+#include "Sound.h"
+
+namespace Roguelike
+{
+    class GameStateData;
+
+    struct GameContext
+    {
+        sf::RenderWindow& window;
+        UI& ui;
+        Menu& menu;
+        Sound& sound;
+        sf::Sprite& menuBg;
+        std::map<std::string, int>& leaderboard;
+        std::stack<std::shared_ptr<GameStateData>>& stateStack;
+    };
+}
